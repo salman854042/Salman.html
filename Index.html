@@ -1,0 +1,4647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Salman - Online Store</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#467ff2;
+    color:#111827;
+}
+
+/* ================================
+   SIMPLE ANIMATION
+================================ */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.topbar{
+    background:#07111f;
+    color:white;
+    padding:12px 6%;
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+}
+
+header{
+    background:white;
+    padding:20px 6%;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    border-bottom:1px solid #eee;
+    animation:fadeIn .7s ease;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    white-space:nowrap;
+    animation:fadeIn .8s ease;
+}
+
+.logo span{
+    color:#0879ff;
+}
+
+.search{
+    flex:1;
+    display:flex;
+    max-width:700px;
+    margin:auto;
+}
+
+.search input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:8px 0 0 8px;
+    outline:none;
+}
+
+.search button{
+    width:55px;
+    border:none;
+    background:#0879ff;
+    color:white;
+}
+
+.header-icons{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.cart-btn{
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.login-btn{
+    background:#063f82;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.login-btn:hover{
+    transform:scale(1.03);
+}
+
+nav{
+    background:white;
+    padding:0 6%;
+    border-bottom:1px solid #eee;
+}
+
+nav a{
+    display:inline-block;
+    padding:16px 22px;
+    text-decoration:none;
+    color:#111827;
+}
+
+nav a:hover,
+nav a.active{
+    background:#3d52fa;
+    color:white;
+    border-radius:6px;
+}
+
+.hero{
+    margin:20px 5%;
+    min-height:360px;
+    border-radius:15px;
+    background:linear-gradient(120deg,#07131f,#102a40);
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:50px;
+    animation:fadeIn 1s ease;
+}
+
+.hero-content{
+    max-width:600px;
+    animation:fadeUp .8s ease;
+}
+
+.hero small{
+    color:#0879ff;
+    font-size:17px;
+}
+
+.hero h1{
+    font-size:48px;
+    line-height:1.15;
+    margin:15px 0;
+}
+
+.hero p{
+    color:#d1d5db;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.btn{
+    background:#0879ff;
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:7px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:scale(1.03);
+}
+
+.section{
+    padding:20px 6%;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:20px 0;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:15px;
+}
+
+.category{
+    background:white;
+    padding:25px 10px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+    transition:.3s;
+    animation:fadeUp .6s ease both;
+}
+
+.category:hover{
+    transform:translateY(-5px);
+}
+
+.category-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.product{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+    position:relative;
+    animation:fadeUp .6s ease both;
+    transition:.3s;
+}
+
+.product:hover{
+    transform:translateY(-6px);
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.product-img{
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f2f4f7;
+    font-size:100px;
+}
+
+.product-img img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.discount{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:#ef4444;
+    color:white;
+    padding:6px 10px;
+    border-radius:5px;
+    z-index:2;
+}
+
+.heart{
+    position:absolute;
+    right:12px;
+    top:12px;
+    background:white;
+    border:none;
+    border-radius:50%;
+    width:38px;
+    height:38px;
+    cursor:pointer;
+    font-size:22px;
+    z-index:5;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.heart.active{
+    color:red;
+    background:#ffe4e6;
+}
+
+.product-info{
+    padding:18px;
+}
+
+.product-info h3{
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#f77786;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#888;
+    margin-left:8px;
+    font-size:14px;
+}
+
+.stock{
+    margin-top:8px;
+    color:#555;
+    font-size:14px;
+}
+
+.product-buttons{
+    margin-top:15px;
+}
+
+.add-cart{
+    width:100%;
+    padding:11px;
+    border:none;
+    color:white;
+    background:#071ec8;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.add-cart:hover{
+    transform:scale(1.02);
+}
+
+.add-cart:disabled{
+    background:#999;
+    cursor:not-allowed;
+}
+
+.cart-panel{
+    position:fixed;
+    right:-420px;
+    top:0;
+    width:400px;
+    height:100vh;
+    background:white;
+    z-index:1000;
+    box-shadow:-5px 0 20px rgba(0,0,0,.2);
+    padding:25px;
+    transition:.3s;
+    overflow-y:auto;
+}
+
+.cart-panel.open{
+    right:0;
+}
+
+.cart-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.close-cart{
+    border:none;
+    background:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-item-img{
+    width:60px;
+    height:60px;
+    background:#f2f4f7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    border-radius:7px;
+    overflow:hidden;
+}
+
+.cart-item-img img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.cart-item-info{
+    flex:1;
+}
+
+.quantity{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:7px;
+}
+
+.quantity button{
+    width:25px;
+    height:25px;
+    border:1px solid #ddd;
+    background:white;
+    cursor:pointer;
+}
+
+.remove{
+    color:red;
+    border:none;
+    background:none;
+    cursor:pointer;
+}
+
+.cart-total{
+    margin-top:25px;
+    font-size:20px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+}
+
+.checkout{
+    width:100%;
+    margin-top:20px;
+}
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:999;
+}
+
+.overlay.show{
+    display:block;
+}
+
+.login-overlay,
+.checkout-overlay,
+.admin-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-overlay.show,
+.checkout-overlay.show,
+.admin-overlay.show{
+    display:flex;
+}
+
+.login-box,
+.checkout-box,
+.admin-box{
+    background:white;
+    width:100%;
+    max-width:500px;
+    padding:30px;
+    border-radius:15px;
+    position:relative;
+    max-height:90vh;
+    overflow-y:auto;
+    animation:fadeUp .35s ease;
+}
+
+.login-box h2,
+.checkout-box h2,
+.admin-box h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.close-modal{
+    position:absolute;
+    right:15px;
+    top:10px;
+    border:none;
+    background:none;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.login-box input,
+.checkout-box input,
+.admin-box input,
+.admin-box select{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    border:1px solid #ddd;
+    border-radius:7px;
+    outline:none;
+}
+
+.login-submit{
+    width:100%;
+    background:#0879ff;
+    color:white;
+    border:none;
+    padding:13px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.25s;
+}
+
+.login-submit:hover{
+    transform:scale(1.02);
+}
+
+.switch{
+    text-align:center;
+    margin-top:15px;
+}
+
+.switch span{
+    color:#0879ff;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.message{
+    margin-bottom:12px;
+    text-align:center;
+    font-size:14px;
+}
+
+.account-box{
+    text-align:center;
+}
+
+.user-icon{
+    font-size:55px;
+}
+
+.logout-btn{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    background:#073cc8;
+    color:white;
+    border:none;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.payment-box{
+    background:#f3f4f6;
+    padding:15px;
+    border-radius:8px;
+    margin:10px 0;
+}
+
+.payment-box label{
+    display:block;
+    padding:8px;
+}
+
+.admin-button{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    background:#111827;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    z-index:500;
+    transition:.25s;
+}
+
+.admin-button:hover{
+    transform:translateY(-3px);
+}
+
+.admin-section{
+    margin-top:20px;
+}
+
+.admin-product,
+.admin-order{
+    border:1px solid #ddd;
+    padding:15px;
+    margin:10px 0;
+    border-radius:8px;
+}
+
+.admin-product button,
+.admin-order button{
+    margin:5px 3px 0 0;
+    padding:8px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.edit-btn{
+    background:#0879ff;
+    color:white;
+}
+
+.delete-btn{
+    background:#ef4444;
+    color:white;
+}
+
+.status-btn{
+    background:#16a34a;
+    color:white;
+}
+
+.ai-box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+    animation:fadeUp .7s ease;
+}
+
+.ai-box button{
+    margin:5px;
+    padding:10px;
+    border:none;
+    background:#0879ff;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.password-change-box{
+    background:#f3f4f6;
+    padding:18px;
+    border-radius:10px;
+    margin:20px 0;
+}
+
+.password-change-box h3{
+    margin-bottom:12px;
+}
+
+.change-password-btn{
+    width:100%;
+    padding:12px;
+    background:#0879ff;
+    color:white;
+    border:none;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.forgot-password{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    background:none;
+    border:none;
+    color:#0879ff;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.favourite-title{
+    margin-top:30px;
+}
+
+.favourite-list{
+    margin-top:15px;
+}
+
+.favourite-item{
+    background:#f3f4f6;
+    padding:12px;
+    border-radius:8px;
+    margin:8px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.favourite-remove{
+    border:none;
+    background:#ef4444;
+    color:white;
+    padding:6px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* ==========================================
+   IMAGE UPLOAD BUTTON
+========================================== */
+
+.image-upload-box{
+    margin-bottom:12px;
+}
+
+.upload-label{
+    display:block;
+    width:100%;
+    padding:13px;
+    background:#0879ff;
+    color:white;
+    text-align:center;
+    border-radius:7px;
+    cursor:pointer;
+    margin-bottom:10px;
+    transition:.25s;
+}
+
+.upload-label:hover{
+    background:#063fca;
+    transform:translateY(-2px);
+}
+
+.product-image-preview{
+    width:100%;
+    min-height:120px;
+    background:#f3f4f6;
+    border:1px dashed #aaa;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    font-size:50px;
+    margin-bottom:12px;
+}
+
+.product-image-preview img{
+    width:100%;
+    height:150px;
+    object-fit:contain;
+}
+
+footer{
+    margin-top:50px;
+    background:#07111f;
+    color:white;
+    padding:40px 6%;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+}
+
+footer h3{
+    margin-bottom:15px;
+}
+
+footer p{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+.copyright{
+    border-top:1px solid #334155;
+    margin-top:30px;
+    padding-top:20px;
+    text-align:center;
+    color:#aaa;
+}
+
+@media(max-width:900px){
+
+    .topbar{
+        display:none;
+    }
+
+    header{
+        flex-wrap:wrap;
+        padding:15px;
+    }
+
+    .search{
+        order:3;
+        width:100%;
+    }
+
+    nav{
+        overflow-x:auto;
+        white-space:nowrap;
+        padding:0 10px;
+    }
+
+    .hero{
+        margin:15px;
+        padding:30px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .categories{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:500px){
+
+    .logo{
+        font-size:22px;
+    }
+
+    .header-icons{
+        gap:5px;
+    }
+
+    .hero{
+        min-height:320px;
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cart-panel{
+        width:90%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <div>🚚 Free delivery on orders over!</div>
+    <div>📞 01700-000000 &nbsp;&nbsp; ✉ salman73854042@gmail.com</div>
+</div>
+
+<header>
+
+    <div class="logo">
+        🛍️ <span>salman</span>
+    </div>
+
+    <div class="search">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for products..."
+            onkeyup="searchProducts()"
+        >
+
+        <button>🔍</button>
+
+    </div>
+
+    <div class="header-icons">
+
+        <button
+            class="cart-btn"
+            onclick="showFavourite()"
+            title="Favourite"
+        >
+            ❤️
+        </button>
+
+        <button
+            class="cart-btn"
+            onclick="openCart()"
+        >
+            🛒 <span id="cartCount">0</span>
+        </button>
+
+        <button
+            class="login-btn"
+            onclick="openLogin()"
+            id="accountButton"
+        >
+            👤 Login
+        </button>
+
+    </div>
+
+</header>
+
+<nav>
+
+    <a href="#" class="active">🏩 Home</a>
+    <a href="#shop">Shop🏪</a>
+    <a href="#categories">Categories💧</a>
+    <a href="#about">About Us</a>
+    <a href="#contact">Contact Us☎️</a>
+
+</nav>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <small>Welcome to Store</small>
+
+        <h1>
+            Best Quality Products
+            For Your Life
+        </h1>
+
+        <p>
+            Find the best products with unbeatable prices.
+            Quality you can trust, service you deserve.
+        </p>
+
+        <button class="btn" onclick="goShop()">
+            Shop Now
+        </button>
+
+    </div>
+
+</section>
+
+<section class="section" id="categories">
+
+    <div class="section-title">
+        <h2>Categories</h2>
+    </div>
+
+    <div class="categories">
+
+        <div class="category" onclick="filterCategory('Phone')">
+            <div class="category-icon">📱</div>
+            <p>Phones</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Laptop')">
+            <div class="category-icon">💻</div>
+            <p>Laptops</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Headphone')">
+            <div class="category-icon">🎧</div>
+            <p>Accessories</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Watch')">
+            <div class="category-icon">⌚</div>
+            <p>Smart Watch</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Camera')">
+            <div class="category-icon">📷</div>
+            <p>Camera</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Dress')">
+            <div class="category-icon">👗</div>
+            <p>Dress</p>
+        </div>
+
+        <div class="category" onclick="filterCategory('Gaming')">
+            <div class="category-icon">🎮</div>
+            <p>Gaming</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="shop">
+
+    <div class="section-title">
+
+        <h2>Featured Products</h2>
+
+        <button class="btn" onclick="showAllProducts()">
+            View All →
+        </button>
+
+    </div>
+
+    <div class="products" id="productList"></div>
+
+    <div class="ai-box">
+
+        <h2>🤖 AI Product Recommendation</h2>
+
+        <p style="margin:10px 0;">
+            What are you looking for?
+        </p>
+
+        <button onclick="aiRecommend('Phone')">
+            📱 Phone
+        </button>
+
+        <button onclick="aiRecommend('Laptop')">
+            💻 Laptop
+        </button>
+
+        <button onclick="aiRecommend('Headphone')">
+            🎧 Headphone
+        </button>
+
+        <button onclick="aiRecommend('Watch')">
+            ⌚ Watch
+        </button>
+
+        <div id="aiResult" style="margin-top:15px;"></div>
+
+    </div>
+
+</section>
+
+<section
+    class="section"
+    id="favouriteSection"
+    style="display:none;"
+>
+
+    <div class="section-title">
+        <h2>❤️ My Favourite Products</h2>
+    </div>
+
+    <div
+        id="favouriteList"
+        class="favourite-list"
+    ></div>
+
+</section>
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeCart()"
+></div>
+
+<div
+    class="cart-panel"
+    id="cartPanel"
+>
+
+    <div class="cart-header">
+
+        <h2>🛒 Your Cart</h2>
+
+        <button
+            class="close-cart"
+            onclick="closeCart()"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-total">
+
+        <span>Total:</span>
+
+        <span id="cartTotal">
+            ৳0
+        </span>
+
+    </div>
+
+    <button
+        class="btn checkout"
+        onclick="checkout()"
+    >
+        Proceed to Checkout
+    </button>
+
+</div>
+
+<!-- LOGIN -->
+
+<div
+    class="login-overlay"
+    id="loginOverlay"
+>
+
+    <div class="login-box">
+
+        <button
+            class="close-modal"
+            onclick="closeLogin()"
+        >
+            ×
+        </button>
+
+        <div id="loginForm">
+
+            <h2>Welcome Login 👋</h2>
+
+            <div
+                class="message"
+                id="loginMessage"
+            ></div>
+
+            <input
+                type="text"
+                id="loginEmail"
+                placeholder="Email or number "
+            >
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
+
+            <button
+                class="login-submit"
+                onclick="login()"
+            >
+                Login
+            </button>
+
+            <button
+                class="forgot-password"
+                onclick="forgotPassword()"
+            >
+                🔑 Forgot Password?
+            </button>
+
+            <div class="switch">
+
+                Don't have an account?
+
+                <span onclick="showRegister()">
+                    Register
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerForm"
+            style="display:none;"
+        >
+
+            <h2>Create Account 📝</h2>
+
+            <div
+                class="message"
+                id="registerMessage"
+            ></div>
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Full name"
+            >
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Email address"
+            >
+
+            <input
+                type="text"
+                id="registerPhone"
+                placeholder="Phone number"
+            >
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Password"
+            >
+
+            <input
+                type="password"
+                id="registerConfirm"
+                placeholder="Confirm password"
+            >
+
+            <button
+                class="login-submit"
+                onclick="register()"
+            >
+                Create Account
+            </button>
+
+            <div class="switch">
+
+                Already have an account?
+
+                <span onclick="showLogin()">
+                    Login
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- ACCOUNT -->
+
+        <div
+            id="accountForm"
+            style="display:none;"
+            class="account-box"
+        >
+
+            <div class="user-icon">
+                👨‍💼
+            </div>
+
+            <h2>My Account</h2>
+
+            <p
+                id="userName"
+                style="margin-top:10px;"
+            ></p>
+
+            <p
+                id="userEmail"
+                style="color:#777;margin-top:5px;"
+            ></p>
+
+            <p
+                id="userPhone"
+                style="color:#777;margin-top:5px;"
+            ></p>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHECKOUT -->
+
+<div
+    class="checkout-overlay"
+    id="checkoutOverlay"
+>
+
+    <div class="checkout-box">
+
+        <button
+            class="close-modal"
+            onclick="closeCheckout()"
+        >
+            ×
+        </button>
+
+        <h2>🧾 Checkout</h2>
+
+        <input
+            id="customerName"
+            placeholder="Full name"
+        >
+
+        <input
+            id="customerPhone"
+            placeholder="Phone number"
+        >
+
+        <input
+            id="customerAddress"
+            placeholder="Delivery address"
+        >
+
+        <div class="payment-box">
+
+            <b>💳 Payment Method</b>
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Cash on Delivery"
+                    checked
+                >
+                Cash on Delivery
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="bKash"
+                >
+                bKash
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Nagad"
+                >
+                Nagad
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Card"
+                >
+                Card
+            </label>
+
+        </div>
+
+        <div
+            id="checkoutTotal"
+            style="
+                font-size:20px;
+                font-weight:bold;
+                margin:15px 0;
+            "
+        >
+            Total: ৳0
+        </div>
+
+        <button
+            class="btn"
+            style="width:100%;"
+            onclick="placeOrder()"
+        >
+            ✅ Place Order
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ADMIN BUTTON -->
+
+<button
+    class="admin-button"
+    onclick="openAdmin()"
+>
+    👨‍💼 Admin
+</button>
+
+<!-- ADMIN PANEL -->
+
+<div
+    class="admin-overlay"
+    id="adminOverlay"
+>
+
+    <div class="admin-box">
+
+        <button
+            class="close-modal"
+            onclick="closeAdmin()"
+        >
+            ×
+        </button>
+
+        <h2>👨‍💼 Admin Panel</h2>
+
+        <!-- ADMIN LOGIN -->
+
+        <div id="adminLogin">
+
+            <input
+                type="text"
+                id="Adminusername"
+                placeholder="Admin username or Email "
+                autocomplete="username"
+            >
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Admin Password"
+                autocomplete="current-password"
+            >
+
+            <button
+                class="login-submit"
+                onclick="adminLogin()"
+            >
+                🔐 Admin Login
+            </button>
+
+            <p
+                id="adminLoginMessage"
+                style="
+                    color:#ef4444;
+                    font-size:13px;
+                    margin-top:10px;
+                "
+            ></p>
+
+            <button
+                class="forgot-password"
+                onclick="showAdminForgotPassword()"
+            >
+                🔑 Forgot Password?
+            </button>
+
+        </div>
+
+        <!-- ADMIN FORGOT PASSWORD -->
+
+        <div
+            id="adminForgotPassword"
+            style="display:none;"
+        >
+
+            <h3>🔑 Forgot Admin Password</h3>
+
+            <div id="adminForgotEmailStep">
+
+                <input
+                    type="email"
+                    id="resetAdminEmail"
+                    placeholder="Admin Email"
+                >
+
+                <button
+                    class="login-submit"
+                    onclick="sendAdminOTP()"
+                >
+                    📧 Send OTP
+                </button>
+
+            </div>
+
+            <div
+                id="adminOTPStep"
+                style="display:none;"
+            >
+
+                <input
+                    type="text"
+                    id="adminOTP"
+                    placeholder="Enter 6 digit OTP"
+                    maxlength="6"
+                    inputmode="numeric"
+                >
+
+                <p
+                    id="adminOTPTimer"
+                    style="
+                        text-align:center;
+                        color:#ef4444;
+                        margin:10px 0;
+                    "
+                >
+                    OTP expires in 10:00
+                </p>
+
+                <button
+                    class="login-submit"
+                    onclick="verifyAdminOTP()"
+                >
+                    ✅ Verify OTP
+                </button>
+
+            </div>
+
+            <div
+                id="adminNewPasswordStep"
+                style="display:none;"
+            >
+
+                <input
+                    type="password"
+                    id="resetAdminNewPassword"
+                    placeholder="New Password"
+                    autocomplete="new-password"
+                >
+
+                <input
+                    type="password"
+                    id="resetAdminConfirmPassword"
+                    placeholder="Confirm New Password"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    class="login-submit"
+                    onclick="resetAdminPassword()"
+                >
+                    🔐 Reset Password
+                </button>
+
+            </div>
+
+            <p
+                id="adminForgotMessage"
+                style="
+                    color:#ef4444;
+                    font-size:13px;
+                    margin-top:10px;
+                "
+            ></p>
+
+            <button
+                class="forgot-password"
+                onclick="showAdminLogin()"
+            >
+                ← Back to Admin Login
+            </button>
+
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+
+        <div
+            id="adminDashboard"
+            style="display:none;"
+        >
+
+            <!-- ADMIN SECURITY -->
+
+            <div class="password-change-box">
+
+                <h3>
+                    🔐 Admin Security
+                </h3>
+
+                <input
+                    type="password"
+                    id="oldAdminPassword"
+                    placeholder="Current Password"
+                    autocomplete="current-password"
+                >
+
+                <input
+                    type="password"
+                    id="newAdminPassword"
+                    placeholder="New Password"
+                    autocomplete="new-password"
+                >
+
+                <input
+                    type="password"
+                    id="confirmAdminPassword"
+                    placeholder="Confirm New Password"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    class="change-password-btn"
+                    onclick="changeAdminPassword()"
+                >
+                    🔐 Change Password
+                </button>
+
+            </div>
+
+            <!-- ADMIN ACCOUNT -->
+
+            <div class="admin-section">
+
+                <h3>
+                    👤 Admin Account
+                </h3>
+
+                <p>
+                    📧
+                    <span id="adminAccountEmail">
+                        Admin Email
+                    </span>
+                </p>
+
+            </div>
+
+            <!-- PRODUCTS -->
+
+            <h3>
+                📦 Add / Edit Product
+            </h3>
+
+            <input
+                id="adminProductName"
+                placeholder="Product name"
+            >
+
+            <input
+                id="adminProductPrice"
+                type="number"
+                placeholder="Price"
+            >
+
+            <input
+                id="adminProductOldPrice"
+                type="number"
+                placeholder="Old price"
+            >
+
+            <!-- IMAGE INPUT + UPLOAD BUTTON -->
+
+            <div class="image-upload-box">
+
+                <input
+                    id="adminProductImage"
+                    placeholder="Emoji or image URL"
+                    oninput="previewProductImage()"
+                >
+
+                <label
+                    class="upload-label"
+                    for="productImageFile"
+                >
+                    📤 Upload Picture
+
+                    <input
+                        type="file"
+                        id="productImageFile"
+                        accept="image/*"
+                        onchange="uploadProductImage(event)"
+                        style="display:none;"
+                    >
+                </label>
+
+                <div
+                    id="productImagePreview"
+                    class="product-image-preview"
+                >
+                      
+                </div>
+
+            </div>
+
+            <input
+                id="adminProductStock"
+                type="number"
+                placeholder="Stock"
+            >
+
+            <select id="adminProductCategory">
+
+                <option value="Phone">
+                    Phone
+                </option>
+
+                <option value="Laptop">
+                    Laptop
+                </option>
+
+                <option value="Headphone">
+                    Headphone
+                </option>
+
+                <option value="Watch">
+                    Watch
+                </option>
+
+                <option value="Camera">
+                    Camera
+                </option>
+
+                <option value="Dress">
+                    Dress
+                </option>
+
+                <option value="Gaming">
+                    Gaming
+                </option>
+
+            </select>
+
+            <input
+                id="adminProductDiscount"
+                placeholder="Discount e.g. -10%"
+            >
+
+            <input
+                id="editProductId"
+                type="hidden"
+            >
+
+            <button onclick="saveAdminProduct()">
+                💾 Save Product
+            </button>
+
+            <button
+                onclick="clearAdminForm()"
+                style="background:#777;"
+            >
+                Clear
+            </button>
+
+            <!-- PRODUCT DATABASE -->
+
+            <div class="admin-section">
+
+                <h3>
+                    📦 Product Database
+                </h3>
+
+                <div id="adminProducts">
+                    Loading products...
+                </div>
+
+            </div>
+
+            <!-- ORDERS -->
+
+            <div class="admin-section">
+
+                <h3>
+                    🧾 Order Management
+                </h3>
+
+                <div id="adminOrders">
+                    Loading orders...
+                </div>
+
+            </div>
+
+            <!-- CUSTOMERS -->
+
+            <div class="admin-section">
+
+                <h3>
+                    👥 Customers
+                </h3>
+
+                <div id="adminCustomers">
+                    Loading customers...
+                </div>
+
+            </div>
+
+            <!-- WISHLIST -->
+
+            <div class="admin-section">
+
+                <h3>
+                    ❤️ Favourite / Wishlist
+                </h3>
+
+                <div id="adminWishlist">
+                    Loading wishlist...
+                </div>
+
+            </div>
+
+            <!-- SESSIONS -->
+
+            <div class="admin-section">
+
+                <h3>
+                    🔐 Login / Session Information
+                </h3>
+
+                <div id="adminSessions">
+                    Loading sessions...
+                </div>
+
+            </div>
+
+            <!-- SECURITY -->
+
+            <div class="admin-section">
+
+                <h3>
+                    🛡️ Security
+                </h3>
+
+                <p>
+                    🔒 Password: Protected
+                </p>
+
+                <p>
+                    🎫 Authentication: Session
+                </p>
+
+                <p>
+                    🛡️ Login Protection: Enabled
+                </p>
+
+                <p>
+                    📧 OTP Verification: Enabled
+                </p>
+
+            </div>
+
+            <!-- LOGOUT -->
+
+            <button
+                onclick="adminLogout()"
+                style="
+                    background:#ef4444;
+                    color:white;
+                    border:none;
+                    padding:12px;
+                    border-radius:7px;
+                    width:100%;
+                    margin-top:15px;
+                    cursor:pointer;
+                "
+            >
+                🚪 Admin Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer id="contact">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>Salman</h3>
+
+            <p>
+                Your trusted online shopping destination.
+                Best products, best prices and best service.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <p>Home</p>
+            <p>Shop</p>
+            <p>Categories</p>
+            <p>About Us</p>
+
+        </div>
+
+        <div>
+
+            <h3>Customer Service</h3>
+
+            <p>Help Center</p>
+            <p>Delivery Information</p>
+            <p>Return Policy</p>
+            <p>Privacy Policy</p>
+
+        </div>
+
+        <div>
+
+            <h3>Contact</h3>
+
+            <p>📞 01700-000000</p>
+            <p>✉ mdsalman73854042@gmail.com</p>
+            <p>📍 Dhaka, Bangladesh</p>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Salman. All Rights Reserved.
+    </div>
+
+</footer>
+
+<script>
+
+/* ==========================================
+   PRODUCT DATABASE
+========================================== */
+
+const defaultProducts = [
+
+{
+    id:1,
+    name:"iPhone 14 Pro Max",
+    price:135000,
+    oldPrice:159000,
+    discount:"-15%",
+    category:"Phone",
+    image:"📱",
+    stock:10
+},
+
+{
+    id:2,
+    name:"Asus ROG Strix G15",
+    price:126000,
+    oldPrice:140000,
+    discount:"-10%",
+    category:"Laptop",
+    image:"💻",
+    stock:5
+},
+
+{
+    id:3,
+    name:"Sony WH-1000XM4",
+    price:24990,
+    oldPrice:29990,
+    discount:"",
+    category:"Headphone",
+    image:"🎧",
+    stock:15
+},
+
+{
+    id:4,
+    name:"Apple Watch Series 8",
+    price:45500,
+    oldPrice:52000,
+    discount:"",
+    category:"Watch",
+    image:"⌚",
+    stock:8
+},
+
+{
+    id:5,
+    name:"Samsung Galaxy S24",
+    price:99999,
+    oldPrice:115000,
+    discount:"-13%",
+    category:"Phone",
+    image:"📱",
+    stock:12
+},
+
+{
+    id:6,
+    name:"MacBook Air M2",
+    price:108000,
+    oldPrice:120000,
+    discount:"-10%",
+    category:"Laptop",
+    image:"💻",
+    stock:7
+},
+
+{
+    id:7,
+    name:"AirPods Pro",
+    price:22000,
+    oldPrice:26000,
+    discount:"-15%",
+    category:"Headphone",
+    image:"🎧",
+    stock:20
+},
+
+{
+    id:8,
+    name:"Samsung Galaxy Watch",
+    price:28000,
+    oldPrice:32000,
+    discount:"-12%",
+    category:"Watch",
+    image:"⌚",
+    stock:10
+},
+
+{
+    id:9,
+    name:"Fashion Dress",
+    price:1000,
+    oldPrice:1500,
+    discount:"-33%",
+    category:"Dress",
+    image:"👗",
+    stock:25
+}
+
+];
+
+let products =
+JSON.parse(localStorage.getItem("salmanProducts")) ||
+defaultProducts;
+
+let cart =
+JSON.parse(localStorage.getItem("salmanCart")) ||
+[];
+
+let users =
+JSON.parse(localStorage.getItem("salmanUsers")) ||
+[];
+
+let orders =
+JSON.parse(localStorage.getItem("salmanOrders")) ||
+[];
+
+let currentUser =
+JSON.parse(localStorage.getItem("salmanCurrentUser")) ||
+null;
+
+let favourites =
+JSON.parse(localStorage.getItem("salmanFavourites")) ||
+[];
+
+
+/* ==========================================
+   ADMIN SETTINGS
+========================================== */
+
+const ADMIN_USERNAME = "username";
+const ADMIN_EMAIL = "mdsalman73854042@gmail.com";
+
+const DEFAULT_ADMIN_PASSWORD = "admin123";
+const ADMIN_PASSWORD_VERSION = "2";
+
+let adminOTP = null;
+let adminOTPExpiry = null;
+let adminOTPInterval = null;
+
+
+/* ==========================================
+   DATABASE INITIALIZATION
+========================================== */
+
+function initializeDatabase(){
+
+    if(!localStorage.getItem("salmanProducts")){
+        localStorage.setItem(
+            "salmanProducts",
+            JSON.stringify(defaultProducts)
+        );
+    }
+
+    if(!localStorage.getItem("salmanCart")){
+        localStorage.setItem(
+            "salmanCart",
+            JSON.stringify([])
+        );
+    }
+
+    if(!localStorage.getItem("salmanUsers")){
+        localStorage.setItem(
+            "salmanUsers",
+            JSON.stringify([])
+        );
+    }
+
+    if(!localStorage.getItem("salmanOrders")){
+        localStorage.setItem(
+            "salmanOrders",
+            JSON.stringify([])
+        );
+    }
+
+    if(!localStorage.getItem("salmanFavourites")){
+        localStorage.setItem(
+            "salmanFavourites",
+            JSON.stringify([])
+        );
+    }
+}
+
+
+/* ==========================================
+   ADMIN PASSWORD INITIALIZATION
+========================================== */
+
+function initializeAdminPassword(){
+
+    const savedVersion =
+        localStorage.getItem(
+            "salmanAdminPasswordVersion"
+        );
+
+    if(savedVersion !== ADMIN_PASSWORD_VERSION){
+
+        localStorage.setItem(
+            "salmanAdminPassword",
+            DEFAULT_ADMIN_PASSWORD
+        );
+
+        localStorage.setItem(
+            "salmanAdminPasswordVersion",
+            ADMIN_PASSWORD_VERSION
+        );
+
+        localStorage.removeItem(
+            "salmanAdmin"
+        );
+    }
+
+    if(
+        !localStorage.getItem(
+            "salmanAdminPassword"
+        )
+    ){
+
+        localStorage.setItem(
+            "salmanAdminPassword",
+            DEFAULT_ADMIN_PASSWORD
+        );
+    }
+}
+
+
+/* DATABASE START */
+
+initializeDatabase();
+
+initializeAdminPassword();
+
+
+/* ==========================================
+   SAVE DATABASE
+========================================== */
+
+function saveDatabase(){
+
+    localStorage.setItem(
+        "salmanProducts",
+        JSON.stringify(products)
+    );
+
+    localStorage.setItem(
+        "salmanCart",
+        JSON.stringify(cart)
+    );
+
+    localStorage.setItem(
+        "salmanUsers",
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        "salmanOrders",
+        JSON.stringify(orders)
+    );
+
+    localStorage.setItem(
+        "salmanFavourites",
+        JSON.stringify(favourites)
+    );
+}
+
+
+/* ==========================================
+   PRODUCT IMAGE
+========================================== */
+
+function getImageHTML(product){
+
+    if(
+        product.image &&
+        (
+            product.image.startsWith("http") ||
+            product.image.startsWith("data:image/") ||
+            product.image.includes(".png") ||
+            product.image.includes(".jpg") ||
+            product.image.includes(".jpeg") ||
+            product.image.includes(".webp")
+        )
+    ){
+
+        return `
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+            >
+        `;
+
+    }
+
+    return product.image || "📦";
+}
+
+
+/* ==========================================
+   IMAGE PREVIEW
+========================================== */
+
+function previewProductImage(){
+
+    const value =
+        document
+        .getElementById("adminProductImage")
+        .value
+        .trim();
+
+    const preview =
+        document.getElementById(
+            "productImagePreview"
+        );
+
+    if(!value){
+
+        preview.innerHTML =
+            "Image Preview";
+
+        return;
+    }
+
+    if(
+        value.startsWith("http") ||
+        value.startsWith("data:image/") ||
+        value.includes(".png") ||
+        value.includes(".jpg") ||
+        value.includes(".jpeg") ||
+        value.includes(".webp")
+    ){
+
+        preview.innerHTML = `
+            <img
+                src="${value}"
+                alt="Product Preview"
+                onerror="
+                    this.parentElement.innerHTML='❌ Image not found';
+                "
+            >
+        `;
+
+    }else{
+
+        preview.innerHTML =
+            value;
+    }
+}
+
+
+/* ==========================================
+   UPLOAD PRODUCT IMAGE
+========================================== */
+
+function uploadProductImage(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    if(!file.type.startsWith("image/")){
+
+        alert(
+            "❌ Please select an image file."
+        );
+
+        return;
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload=function(e){
+
+        const imageData =
+            e.target.result;
+
+        document
+            .getElementById(
+                "adminProductImage"
+            )
+            .value=imageData;
+
+        document
+            .getElementById(
+                "productImagePreview"
+            )
+            .innerHTML=`
+                <img
+                    src="${imageData}"
+                    alt="Product Preview"
+                >
+            `;
+
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* ==========================================
+   DISPLAY PRODUCTS
+========================================== */
+
+function displayProducts(list=products){
+
+    const productList =
+        document.getElementById("productList");
+
+    productList.innerHTML="";
+
+    if(list.length===0){
+
+        productList.innerHTML =
+            "<h3>No products found.</h3>";
+
+        return;
+    }
+
+    list.forEach(product=>{
+
+        const imageHTML =
+            getImageHTML(product);
+
+        const isFavourite =
+            favourites.includes(product.id);
+
+        productList.innerHTML += `
+
+        <div class="product">
+
+            ${
+                product.discount
+                ?
+                `
+                <div class="discount">
+                    ${product.discount}
+                </div>
+                `
+                :
+                ""
+            }
+
+            <button
+                class="heart ${isFavourite ? "active" : ""}"
+                onclick="addWishlist(${product.id})"
+                title="Favourite"
+            >
+                ${isFavourite ? "❤️" : "♡"}
+            </button>
+
+            <div class="product-img">
+                ${imageHTML}
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <span class="price">
+                    ৳${Number(product.price).toLocaleString()}
+                </span>
+
+                ${
+                    product.oldPrice
+                    ?
+                    `
+                    <span class="old-price">
+                        ৳${Number(
+                            product.oldPrice
+                        ).toLocaleString()}
+                    </span>
+                    `
+                    :
+                    ""
+                }
+
+                <div class="stock">
+                    Stock: ${product.stock}
+                </div>
+
+                <div class="product-buttons">
+
+                    <button
+                        class="add-cart"
+                        onclick="addToCart(${product.id})"
+                        ${product.stock<=0 ? "disabled" : ""}
+                    >
+
+                        ${
+                            product.stock<=0
+                            ?
+                            "Out of Stock"
+                            :
+                            "🛒 Add to Cart"
+                        }
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* ==========================================
+   CART
+========================================== */
+
+function addToCart(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    if(product.stock<=0){
+
+        alert("❌ Product is out of stock!");
+
+        return;
+    }
+
+    const existing =
+        cart.find(item=>item.id===id);
+
+    if(existing){
+
+        if(existing.quantity>=product.stock){
+
+            alert("❌ No more stock available!");
+
+            return;
+        }
+
+        existing.quantity++;
+
+    }else{
+
+        cart.push({
+            ...product,
+            quantity:1
+        });
+
+    }
+
+    saveDatabase();
+    updateCart();
+    openCart();
+}
+
+
+function updateCart(){
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    cartItems.innerHTML="";
+
+    let total=0;
+    let count=0;
+
+    cart.forEach(item=>{
+
+        total +=
+            Number(item.price) *
+            item.quantity;
+
+        count += item.quantity;
+
+        cartItems.innerHTML += `
+
+        <div class="cart-item">
+
+            <div class="cart-item-img">
+                ${getImageHTML(item)}
+            </div>
+
+            <div class="cart-item-info">
+
+                <h4>
+                    ${item.name}
+                </h4>
+
+                <p>
+                    ৳${Number(item.price).toLocaleString()}
+                </p>
+
+                <div class="quantity">
+
+                    <button
+                        onclick="changeQuantity(${item.id},-1)"
+                    >
+                        -
+                    </button>
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+                    <button
+                        onclick="changeQuantity(${item.id},1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                class="remove"
+                onclick="removeFromCart(${item.id})"
+            >
+                🗑️
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+    cartCount.innerText=count;
+
+    cartTotal.innerText =
+        "৳"+total.toLocaleString();
+}
+
+
+function changeQuantity(id,change){
+
+    const item =
+        cart.find(item=>item.id===id);
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!item || !product) return;
+
+    if(
+        change>0 &&
+        item.quantity>=product.stock
+    ){
+
+        alert("Maximum stock reached!");
+
+        return;
+    }
+
+    item.quantity += change;
+
+    if(item.quantity<=0){
+
+        cart =
+            cart.filter(
+                item=>item.id!==id
+            );
+
+    }
+
+    saveDatabase();
+    updateCart();
+}
+
+
+function removeFromCart(id){
+
+    cart =
+        cart.filter(
+            item=>item.id!==id
+        );
+
+    saveDatabase();
+    updateCart();
+}
+
+
+function openCart(){
+
+    document
+        .getElementById("cartPanel")
+        .classList.add("open");
+
+    document
+        .getElementById("overlay")
+        .classList.add("show");
+}
+
+
+function closeCart(){
+
+    document
+        .getElementById("cartPanel")
+        .classList.remove("open");
+
+    document
+        .getElementById("overlay")
+        .classList.remove("show");
+}
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+function searchProducts(){
+
+    const text =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const result =
+        products.filter(product=>
+            product.name
+            .toLowerCase()
+            .includes(text)
+        );
+
+    displayProducts(result);
+}
+
+
+/* ==========================================
+   CATEGORY
+========================================== */
+
+function filterCategory(category){
+
+    const result =
+        products.filter(
+            product=>
+            product.category===category
+        );
+
+    displayProducts(result);
+
+    document
+        .getElementById("shop")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+}
+
+
+function showAllProducts(){
+
+    displayProducts(products);
+}
+
+
+function goShop(){
+
+    document
+        .getElementById("shop")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+}
+
+
+/* ==========================================
+   FAVOURITE
+========================================== */
+
+function addWishlist(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    if(favourites.includes(id)){
+
+        favourites =
+            favourites.filter(
+                item=>item!==id
+            );
+
+        alert("💔 Removed from Favourite!");
+
+    }else{
+
+        favourites.push(id);
+
+        alert("❤️ Added to Favourite!");
+
+    }
+
+    saveDatabase();
+
+    displayProducts();
+
+    loadFavourite();
+
+    loadAdminWishlist();
+}
+
+
+function loadFavourite(){
+
+    const box =
+        document.getElementById(
+            "favouriteList"
+        );
+
+    box.innerHTML="";
+
+    const favouriteProducts =
+        products.filter(
+            p=>favourites.includes(p.id)
+        );
+
+    if(favouriteProducts.length===0){
+
+        box.innerHTML =
+            "<p>No favourite products yet ❤️</p>";
+
+        return;
+    }
+
+    favouriteProducts.forEach(product=>{
+
+        box.innerHTML += `
+
+        <div class="favourite-item">
+
+            <span>
+
+                ${getImageHTML(product)}
+
+                <b>
+                    ${product.name}
+                </b>
+
+                -
+                ৳${Number(
+                    product.price
+                ).toLocaleString()}
+
+            </span>
+
+            <button
+                class="favourite-remove"
+                onclick="addWishlist(${product.id})"
+            >
+                Remove
+            </button>
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+function showFavourite(){
+
+    const section =
+        document.getElementById(
+            "favouriteSection"
+        );
+
+    section.style.display="block";
+
+    loadFavourite();
+
+    section.scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+/* ==========================================
+   REGISTER
+========================================== */
+
+function register(){
+
+    const name =
+        document
+        .getElementById("registerName")
+        .value.trim();
+
+    const email =
+        document
+        .getElementById("registerEmail")
+        .value.trim();
+
+    const phone =
+        document
+        .getElementById("registerPhone")
+        .value.trim();
+
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
+
+    const confirm =
+        document
+        .getElementById("registerConfirm")
+        .value;
+
+    const message =
+        document.getElementById(
+            "registerMessage"
+        );
+
+    if(
+        !name ||
+        !email ||
+        !phone ||
+        !password ||
+        !confirm
+    ){
+
+        message.innerText =
+            "⚠️ Please fill all fields.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    if(password.length<6){
+
+        message.innerText =
+            "⚠️ Password must be at least 6 characters.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    if(password!==confirm){
+
+        message.innerText =
+            "❌ Passwords do not match.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    if(
+        users.some(
+            user=>
+            user.email.toLowerCase()===
+            email.toLowerCase()
+        )
+    ){
+
+        message.innerText =
+            "❌ Email already registered.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    const user={
+        id:Date.now(),
+        name:name,
+        email:email,
+        phone:phone,
+        password:password
+    };
+
+    users.push(user);
+
+    currentUser=user;
+
+    saveDatabase();
+
+    localStorage.setItem(
+        "salmanCurrentUser",
+        JSON.stringify(user)
+    );
+
+    message.innerText =
+        "✅ Account created successfully!";
+
+    message.style.color="green";
+
+    setTimeout(()=>{
+        updateAccountView();
+    },500);
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+function login(){
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value.trim();
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+    const message =
+        document.getElementById(
+            "loginMessage"
+        );
+
+    const user =
+        users.find(
+            user=>
+            user.email.toLowerCase()===
+            email.toLowerCase()
+            &&
+            user.password===password
+        );
+
+    if(!user){
+
+        message.innerText =
+            "❌ Email or password is incorrect.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    currentUser=user;
+
+    localStorage.setItem(
+        "salmanCurrentUser",
+        JSON.stringify(user)
+    );
+
+    message.innerText =
+        "✅ Login successful!";
+
+    message.style.color="green";
+
+    setTimeout(()=>{
+        updateAccountView();
+    },500);
+}
+
+
+/* ==========================================
+   FORGOT USER PASSWORD
+========================================== */
+
+function forgotPassword(){
+
+    const email =
+        prompt(
+            "📧 Enter your registered email:"
+        );
+
+    if(!email) return;
+
+    const phone =
+        prompt(
+            "📱 Enter your registered phone number:"
+        );
+
+    if(!phone) return;
+
+    const user =
+        users.find(
+            u=>
+            u.email.toLowerCase()===
+            email.toLowerCase()
+            &&
+            u.phone===phone
+        );
+
+    if(!user){
+
+        alert(
+            "❌ Email or phone number is incorrect!"
+        );
+
+        return;
+    }
+
+    const newPassword =
+        prompt(
+            "🔐 Enter your new password (minimum 6 characters):"
+        );
+
+    if(!newPassword) return;
+
+    if(newPassword.length<6){
+
+        alert(
+            "⚠️ Password must be at least 6 characters."
+        );
+
+        return;
+    }
+
+    const confirmPassword =
+        prompt(
+            "🔐 Confirm your new password:"
+        );
+
+    if(newPassword!==confirmPassword){
+
+        alert(
+            "❌ Passwords do not match!"
+        );
+
+        return;
+    }
+
+    user.password=newPassword;
+
+    saveDatabase();
+
+    alert(
+        "✅ Password changed successfully!"
+    );
+}
+
+
+/* ==========================================
+   ACCOUNT
+========================================== */
+
+function openLogin(){
+
+    document
+        .getElementById("loginOverlay")
+        .classList.add("show");
+
+    updateAccountView();
+}
+
+
+function closeLogin(){
+
+    document
+        .getElementById("loginOverlay")
+        .classList.remove("show");
+}
+
+
+function showLogin(){
+
+    document
+        .getElementById("loginForm")
+        .style.display="block";
+
+    document
+        .getElementById("registerForm")
+        .style.display="none";
+
+    document
+        .getElementById("accountForm")
+        .style.display="none";
+}
+
+
+function showRegister(){
+
+    document
+        .getElementById("loginForm")
+        .style.display="none";
+
+    document
+        .getElementById("registerForm")
+        .style.display="block";
+
+    document
+        .getElementById("accountForm")
+        .style.display="none";
+}
+
+
+function updateAccountView(){
+
+    if(currentUser){
+
+        document
+            .getElementById("loginForm")
+            .style.display="none";
+
+        document
+            .getElementById("registerForm")
+            .style.display="none";
+
+        document
+            .getElementById("accountForm")
+            .style.display="block";
+
+        document
+            .getElementById("userName")
+            .innerText =
+            "Name: "+currentUser.name;
+
+        document
+            .getElementById("userEmail")
+            .innerText =
+            "Email: "+currentUser.email;
+
+        document
+            .getElementById("userPhone")
+            .innerText =
+            "Phone: "+currentUser.phone;
+
+        updateAccountButton();
+
+    }else{
+
+        showLogin();
+    }
+}
+
+
+function updateAccountButton(){
+
+    const button =
+        document.getElementById(
+            "accountButton"
+        );
+
+    if(currentUser){
+
+        button.innerText =
+            "👤 "+currentUser.name;
+
+    }else{
+
+        button.innerText =
+            "👤 Login";
+    }
+}
+
+
+function logout(){
+
+    currentUser=null;
+
+    localStorage.removeItem(
+        "salmanCurrentUser"
+    );
+
+    showLogin();
+
+    updateAccountButton();
+}
+
+
+/* ==========================================
+   CHECKOUT
+========================================== */
+
+function checkout(){
+
+    if(cart.length===0){
+
+        alert(
+            "Your cart is empty!"
+        );
+
+        return;
+    }
+
+    if(!currentUser){
+
+        alert(
+            "Please Login/Register before checkout."
+        );
+
+        openLogin();
+
+        return;
+    }
+
+    document
+        .getElementById("customerName")
+        .value=currentUser.name;
+
+    document
+        .getElementById("customerPhone")
+        .value=currentUser.phone;
+
+    let total=0;
+
+    cart.forEach(item=>{
+
+        total +=
+            item.price *
+            item.quantity;
+
+    });
+
+    document
+        .getElementById("checkoutTotal")
+        .innerText =
+        "Total: ৳"+total.toLocaleString();
+
+    closeCart();
+
+    document
+        .getElementById("checkoutOverlay")
+        .classList.add("show");
+}
+
+
+function closeCheckout(){
+
+    document
+        .getElementById("checkoutOverlay")
+        .classList.remove("show");
+}
+
+
+/* ==========================================
+   PLACE ORDER
+========================================== */
+
+function placeOrder(){
+
+    const name =
+        document
+        .getElementById("customerName")
+        .value.trim();
+
+    const phone =
+        document
+        .getElementById("customerPhone")
+        .value.trim();
+
+    const address =
+        document
+        .getElementById("customerAddress")
+        .value.trim();
+
+    if(!name || !phone || !address){
+
+        alert(
+            "⚠️ Please fill delivery information."
+        );
+
+        return;
+    }
+
+    const payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        ).value;
+
+    let total=0;
+
+    const orderProducts =
+        cart.map(item=>{
+
+            total +=
+                item.price *
+                item.quantity;
+
+            return {
+                id:item.id,
+                name:item.name,
+                price:item.price,
+                quantity:item.quantity
+            };
+
+        });
+
+    const order={
+
+        id:"ORD-"+Date.now(),
+
+        customerId:
+            currentUser.id,
+
+        customerName:name,
+
+        phone:phone,
+
+        address:address,
+
+        products:orderProducts,
+
+        total:total,
+
+        paymentMethod:payment,
+
+        paymentStatus:
+            payment==="Cash on Delivery"
+            ?
+            "Pending"
+            :
+            "Payment Pending",
+
+        orderStatus:"Pending",
+
+        date:
+            new Date().toLocaleString()
+
+    };
+
+    orders.unshift(order);
+
+    cart.forEach(item=>{
+
+        const product =
+            products.find(
+                p=>p.id===item.id
+            );
+
+        if(product){
+
+            product.stock -=
+                item.quantity;
+
+        }
+
+    });
+
+    cart=[];
+
+    saveDatabase();
+
+    updateCart();
+
+    displayProducts();
+
+    closeCheckout();
+
+    alert(
+        "✅ Order placed successfully!\n\n"+
+        "Order ID: "+order.id+
+        "\nPayment: "+payment+
+        "\nStatus: Pending"
+    );
+
+    loadAdminOrders();
+}
+
+
+/* ==========================================
+   ADMIN
+========================================== */
+
+function openAdmin(){
+
+    document
+        .getElementById("adminOverlay")
+        .classList.add("show");
+
+    if(
+        localStorage.getItem("salmanAdmin")
+        ==="true"
+    ){
+
+        showAdminDashboard();
+
+    }else{
+
+        showAdminLogin();
+    }
+}
+
+
+function closeAdmin(){
+
+    document
+        .getElementById("adminOverlay")
+        .classList.remove("show");
+}
+
+
+/* ==========================================
+   ADMIN PASSWORD
+========================================== */
+
+function getAdminPassword(){
+
+    return (
+        localStorage.getItem(
+            "salmanAdminPassword"
+        )
+        ||
+        "admin123"
+    );
+}
+
+
+/* ==========================================
+   ADMIN LOGIN
+========================================== */
+
+function adminLogin(){
+
+    const username =
+        document
+        .getElementById("Adminusername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("adminPassword")
+        .value;
+
+    const message =
+        document.getElementById(
+            "adminLoginMessage"
+        );
+
+    if(
+        username===ADMIN_USERNAME
+        &&
+        password===getAdminPassword()
+    ){
+
+        localStorage.setItem(
+            "salmanAdmin",
+            "true"
+        );
+
+        message.innerText="";
+
+        showAdminDashboard();
+
+    }else{
+
+        message.innerText =
+            "❌ Wrong admin username / password";
+
+    }
+}
+
+
+/* ==========================================
+   ADMIN FORGOT PASSWORD
+========================================== */
+
+function showAdminForgotPassword(){
+
+    document
+        .getElementById("adminLogin")
+        .style.display="none";
+
+    document
+        .getElementById("adminForgotPassword")
+        .style.display="block";
+
+    document
+        .getElementById("adminForgotEmailStep")
+        .style.display="block";
+
+    document
+        .getElementById("adminOTPStep")
+        .style.display="none";
+
+    document
+        .getElementById("adminNewPasswordStep")
+        .style.display="none";
+
+    document
+        .getElementById("adminForgotMessage")
+        .innerText="";
+}
+
+
+function showAdminLogin(){
+
+    document
+        .getElementById("adminLogin")
+        .style.display="block";
+
+    document
+        .getElementById("adminForgotPassword")
+        .style.display="none";
+}
+
+
+/* ==========================================
+   SEND ADMIN OTP
+========================================== */
+
+function sendAdminOTP(){
+
+    const email =
+        document
+        .getElementById("resetAdminEmail")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const message =
+        document.getElementById(
+            "adminForgotMessage"
+        );
+
+    if(email!==ADMIN_EMAIL.toLowerCase()){
+
+        message.innerText =
+            "❌ Admin email is incorrect.";
+
+        return;
+    }
+
+    adminOTP =
+        Math.floor(
+            100000 +
+            Math.random()*900000
+        ).toString();
+
+    adminOTPExpiry =
+        Date.now() +
+        10*60*1000;
+
+    localStorage.setItem(
+        "salmanAdminOTP",
+        adminOTP
+    );
+
+    localStorage.setItem(
+        "salmanAdminOTPExpiry",
+        adminOTPExpiry
+    );
+
+    document
+        .getElementById("adminForgotEmailStep")
+        .style.display="none";
+
+    document
+        .getElementById("adminOTPStep")
+        .style.display="block";
+
+    message.style.color="#16a34a";
+
+    message.innerText =
+        "✅ OTP generated. Demo OTP: "+adminOTP;
+
+    startAdminOTPTimer();
+}
+
+
+/* ==========================================
+   OTP TIMER
+========================================== */
+
+function startAdminOTPTimer(){
+
+    clearInterval(adminOTPInterval);
+
+    adminOTPInterval =
+        setInterval(()=>{
+
+            const remaining =
+                adminOTPExpiry -
+                Date.now();
+
+            if(remaining<=0){
+
+                clearInterval(
+                    adminOTPInterval
+                );
+
+                document
+                    .getElementById(
+                        "adminOTPTimer"
+                    )
+                    .innerText =
+                    "OTP expired.";
+
+                return;
+            }
+
+            const minutes =
+                Math.floor(
+                    remaining/60000
+                );
+
+            const seconds =
+                Math.floor(
+                    (remaining%60000)/1000
+                );
+
+            document
+                .getElementById(
+                    "adminOTPTimer"
+                )
+                .innerText =
+                "OTP expires in "+
+                String(minutes).padStart(2,"0")+
+                ":"+
+                String(seconds).padStart(2,"0");
+
+        },1000);
+}
+
+
+/* ==========================================
+   VERIFY OTP
+========================================== */
+
+function verifyAdminOTP(){
+
+    const otp =
+        document
+        .getElementById("adminOTP")
+        .value
+        .trim();
+
+    const savedOTP =
+        localStorage.getItem(
+            "salmanAdminOTP"
+        );
+
+    const expiry =
+        Number(
+            localStorage.getItem(
+                "salmanAdminOTPExpiry"
+            )
+        );
+
+    const message =
+        document.getElementById(
+            "adminForgotMessage"
+        );
+
+    if(
+        !savedOTP ||
+        Date.now()>expiry
+    ){
+
+        message.innerText =
+            "❌ OTP expired. Please request again.";
+
+        return;
+    }
+
+    if(otp!==savedOTP){
+
+        message.innerText =
+            "❌ Invalid OTP.";
+
+        return;
+    }
+
+    clearInterval(adminOTPInterval);
+
+    document
+        .getElementById("adminOTPStep")
+        .style.display="none";
+
+    document
+        .getElementById("adminNewPasswordStep")
+        .style.display="block";
+
+    message.style.color="#16a34a";
+
+    message.innerText =
+        "✅ OTP verified successfully.";
+}
+
+
+/* ==========================================
+   RESET ADMIN PASSWORD
+========================================== */
+
+function resetAdminPassword(){
+
+    const newPassword =
+        document
+        .getElementById(
+            "resetAdminNewPassword"
+        )
+        .value;
+
+    const confirmPassword =
+        document
+        .getElementById(
+            "resetAdminConfirmPassword"
+        )
+        .value;
+
+    const message =
+        document.getElementById(
+            "adminForgotMessage"
+        );
+
+    if(newPassword.length<6){
+
+        message.innerText =
+            "⚠️ Password must be at least 6 characters.";
+
+        return;
+    }
+
+    if(newPassword!==confirmPassword){
+
+        message.innerText =
+            "❌ Passwords do not match.";
+
+        return;
+    }
+
+    localStorage.setItem(
+        "salmanAdminPassword",
+        newPassword
+    );
+
+    localStorage.removeItem(
+        "salmanAdminOTP"
+    );
+
+    localStorage.removeItem(
+        "salmanAdminOTPExpiry"
+    );
+
+    alert(
+        "✅ Admin password reset successfully!"
+    );
+
+    showAdminLogin();
+}
+
+
+/* ==========================================
+   CHANGE ADMIN PASSWORD
+========================================== */
+
+function changeAdminPassword(){
+
+    const oldPassword =
+        document
+        .getElementById(
+            "oldAdminPassword"
+        )
+        .value;
+
+    const newPassword =
+        document
+        .getElementById(
+            "newAdminPassword"
+        )
+        .value;
+
+    const confirmPassword =
+        document
+        .getElementById(
+            "confirmAdminPassword"
+        )
+        .value;
+
+    if(
+        !oldPassword ||
+        !newPassword ||
+        !confirmPassword
+    ){
+
+        alert(
+            "⚠️ Please fill all password fields."
+        );
+
+        return;
+    }
+
+    if(
+        oldPassword!==getAdminPassword()
+    ){
+
+        alert(
+            "❌ Current admin password is incorrect."
+        );
+
+        return;
+    }
+
+    if(newPassword.length<6){
+
+        alert(
+            "⚠️ New password must be at least 6 characters."
+        );
+
+        return;
+    }
+
+    if(newPassword!==confirmPassword){
+
+        alert(
+            "❌ New passwords do not match."
+        );
+
+        return;
+    }
+
+    localStorage.setItem(
+        "salmanAdminPassword",
+        newPassword
+    );
+
+    document
+        .getElementById("oldAdminPassword")
+        .value="";
+
+    document
+        .getElementById("newAdminPassword")
+        .value="";
+
+    document
+        .getElementById("confirmAdminPassword")
+        .value="";
+
+    alert(
+        "✅ Admin password changed successfully!"
+    );
+}
+
+
+/* ==========================================
+   ADMIN DASHBOARD
+========================================== */
+
+function showAdminDashboard(){
+
+    document
+        .getElementById("adminLogin")
+        .style.display="none";
+
+    document
+        .getElementById("adminForgotPassword")
+        .style.display="none";
+
+    document
+        .getElementById("adminDashboard")
+        .style.display="block";
+
+    document
+        .getElementById("adminAccountEmail")
+        .innerText=ADMIN_EMAIL;
+
+    loadAdminProducts();
+    loadAdminOrders();
+    loadAdminCustomers();
+    loadAdminWishlist();
+    loadAdminSessions();
+}
+
+
+/* ==========================================
+   ADMIN LOGOUT
+========================================== */
+
+function adminLogout(){
+
+    localStorage.removeItem(
+        "salmanAdmin"
+    );
+
+    document
+        .getElementById("adminLogin")
+        .style.display="block";
+
+    document
+        .getElementById("adminForgotPassword")
+        .style.display="none";
+
+    document
+        .getElementById("adminDashboard")
+        .style.display="none";
+}
+
+
+/* ==========================================
+   ADMIN PRODUCT ADD / EDIT
+========================================== */
+
+function saveAdminProduct(){
+
+    const name =
+        document
+        .getElementById("adminProductName")
+        .value.trim();
+
+    const price =
+        Number(
+            document
+            .getElementById("adminProductPrice")
+            .value
+        );
+
+    const oldPrice =
+        Number(
+            document
+            .getElementById("adminProductOldPrice")
+            .value
+        );
+
+    const image =
+        document
+        .getElementById("adminProductImage")
+        .value.trim();
+
+    const stock =
+        Number(
+            document
+            .getElementById("adminProductStock")
+            .value
+        );
+
+    const category =
+        document
+        .getElementById("adminProductCategory")
+        .value;
+
+    const discount =
+        document
+        .getElementById("adminProductDiscount")
+        .value;
+
+    const editId =
+        document
+        .getElementById("editProductId")
+        .value;
+
+    if(!name || !price){
+
+        alert(
+            "Product name and price required."
+        );
+
+        return;
+    }
+
+    if(editId){
+
+        const product =
+            products.find(
+                p=>p.id===Number(editId)
+            );
+
+        if(product){
+
+            product.name=name;
+            product.price=price;
+            product.oldPrice=oldPrice;
+            product.image=image || "📦";
+            product.stock=stock;
+            product.category=category;
+            product.discount=discount;
+        }
+
+        alert(
+            "✅ Product updated!"
+        );
+
+    }else{
+
+        products.push({
+
+            id:Date.now(),
+
+            name:name,
+
+            price:price,
+
+            oldPrice:oldPrice,
+
+            image:image || "📦",
+
+            stock:stock,
+
+            category:category,
+
+            discount:discount
+
+        });
+
+        alert(
+            "✅ Product added!"
+        );
+    }
+
+    saveDatabase();
+
+    clearAdminForm();
+
+    displayProducts();
+
+    loadAdminProducts();
+}
+
+
+/* ==========================================
+   ADMIN PRODUCT LIST
+========================================== */
+
+function loadAdminProducts(){
+
+    const box =
+        document.getElementById(
+            "adminProducts"
+        );
+
+    box.innerHTML="";
+
+    if(products.length===0){
+
+        box.innerHTML =
+            "<p>No products.</p>";
+
+        return;
+    }
+
+    products.forEach(product=>{
+
+        box.innerHTML += `
+
+        <div class="admin-product">
+
+            <b>
+                ${getImageHTML(product)}
+                ${product.name}
+            </b>
+
+            <p>
+                Price:
+                ৳${Number(
+                    product.price
+                ).toLocaleString()}
+            </p>
+
+            <p>
+                Stock:
+                ${product.stock}
+            </p>
+
+            <p>
+                Category:
+                ${product.category}
+            </p>
+
+            <button
+                class="edit-btn"
+                onclick="editProduct(${product.id})"
+            >
+                ✏️ Edit
+            </button>
+
+            <button
+                class="delete-btn"
+                onclick="deleteProduct(${product.id})"
+            >
+                🗑️ Delete
+            </button>
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+/* ==========================================
+   EDIT PRODUCT
+========================================== */
+
+function editProduct(id){
+
+    const p =
+        products.find(
+            product=>product.id===id
+        );
+
+    if(!p) return;
+
+    document
+        .getElementById("adminProductName")
+        .value=p.name;
+
+    document
+        .getElementById("adminProductPrice")
+        .value=p.price;
+
+    document
+        .getElementById("adminProductOldPrice")
+        .value=p.oldPrice || "";
+
+    document
+        .getElementById("adminProductImage")
+        .value=p.image;
+
+    document
+        .getElementById("adminProductStock")
+        .value=p.stock;
+
+    document
+        .getElementById("adminProductCategory")
+        .value=p.category;
+
+    document
+        .getElementById("adminProductDiscount")
+        .value=p.discount || "";
+
+    document
+        .getElementById("editProductId")
+        .value=p.id;
+
+    previewProductImage();
+
+    document
+        .getElementById("adminDashboard")
+        .scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+}
+
+
+/* ==========================================
+   DELETE PRODUCT
+========================================== */
+
+function deleteProduct(id){
+
+    if(
+        !confirm(
+            "Are you sure you want to delete?"
+        )
+    ) return;
+
+    products =
+        products.filter(
+            p=>p.id!==id
+        );
+
+    cart =
+        cart.filter(
+            p=>p.id!==id
+        );
+
+    favourites =
+        favourites.filter(
+            p=>p!==id
+        );
+
+    saveDatabase();
+
+    displayProducts();
+
+    updateCart();
+
+    loadAdminProducts();
+
+    loadFavourite();
+
+    loadAdminWishlist();
+}
+
+
+/* ==========================================
+   CLEAR ADMIN FORM
+========================================== */
+
+function clearAdminForm(){
+
+    document
+        .getElementById("adminProductName")
+        .value="";
+
+    document
+        .getElementById("adminProductPrice")
+        .value="";
+
+    document
+        .getElementById("adminProductOldPrice")
+        .value="";
+
+    document
+        .getElementById("adminProductImage")
+        .value="";
+
+    document
+        .getElementById("adminProductStock")
+        .value="";
+
+    document
+        .getElementById("adminProductDiscount")
+        .value="";
+
+    document
+        .getElementById("editProductId")
+        .value="";
+
+    document
+        .getElementById("productImageFile")
+        .value="";
+
+    document
+        .getElementById("productImagePreview")
+        .innerHTML=
+        "Image Preview";
+}
+
+
+/* ==========================================
+   ADMIN ORDERS
+========================================== */
+
+function loadAdminOrders(){
+
+    const box =
+        document.getElementById(
+            "adminOrders"
+        );
+
+    box.innerHTML="";
+
+    if(orders.length===0){
+
+        box.innerHTML =
+            "<p>No orders yet.</p>";
+
+        return;
+    }
+
+    orders.forEach(order=>{
+
+        let productText =
+            order.products
+            .map(
+                p=>
+                `${p.name} × ${p.quantity}`
+            )
+            .join(", ");
+
+        box.innerHTML += `
+
+        <div class="admin-order">
+
+            <b>
+                ${order.id}
+            </b>
+
+            <p>
+                👤 ${order.customerName}
+            </p>
+
+            <p>
+                📞 ${order.phone}
+            </p>
+
+            <p>
+                📍 ${order.address}
+            </p>
+
+            <p>
+                🛒 ${productText}
+            </p>
+
+            <p>
+                💰 ৳${Number(
+                    order.total
+                ).toLocaleString()}
+            </p>
+
+            <p>
+                💳 ${order.paymentMethod}
+            </p>
+
+            <p>
+                Payment:
+                <b>
+                    ${order.paymentStatus}
+                </b>
+            </p>
+
+            <p>
+                Order:
+                <b>
+                    ${order.orderStatus}
+                </b>
+            </p>
+
+            <p>
+                📅 ${order.date}
+            </p>
+
+            <button
+                class="status-btn"
+                onclick="changeOrderStatus('${order.id}','Confirmed')"
+            >
+                Confirmed
+            </button>
+
+            <button
+                class="status-btn"
+                onclick="changeOrderStatus('${order.id}','Shipped')"
+            >
+                Shipped
+            </button>
+
+            <button
+                class="status-btn"
+                onclick="changeOrderStatus('${order.id}','Delivered')"
+            >
+                Delivered
+            </button>
+
+            <button
+                class="delete-btn"
+                onclick="deleteOrder('${order.id}')"
+            >
+                Delete
+            </button>
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+/* ==========================================
+   CHANGE ORDER STATUS
+========================================== */
+
+function changeOrderStatus(id,status){
+
+    const order =
+        orders.find(
+            o=>o.id===id
+        );
+
+    if(!order) return;
+
+    order.orderStatus=status;
+
+    saveDatabase();
+
+    loadAdminOrders();
+
+    alert(
+        "Order status → "+status
+    );
+}
+
+
+/* ==========================================
+   DELETE ORDER
+========================================== */
+
+function deleteOrder(id){
+
+    if(
+        !confirm(
+            "Delete this order?"
+        )
+    ) return;
+
+    orders =
+        orders.filter(
+            o=>o.id!==id
+        );
+
+    saveDatabase();
+
+    loadAdminOrders();
+}
+
+
+/* ==========================================
+   ADMIN CUSTOMERS
+========================================== */
+
+function loadAdminCustomers(){
+
+    const box =
+        document.getElementById(
+            "adminCustomers"
+        );
+
+    box.innerHTML="";
+
+    if(users.length===0){
+
+        box.innerHTML =
+            "<p>No customers registered.</p>";
+
+        return;
+    }
+
+    users.forEach(user=>{
+
+        const userOrders =
+            orders.filter(
+                o=>o.customerId===user.id
+            ).length;
+
+        box.innerHTML += `
+
+        <div class="admin-product">
+
+            <b>
+                👤 ${user.name}
+            </b>
+
+            <p>
+                📧 ${user.email}
+            </p>
+
+            <p>
+                📞 ${user.phone}
+            </p>
+
+            <p>
+                🧾 Orders: ${userOrders}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+/* ==========================================
+   ADMIN WISHLIST
+========================================== */
+
+function loadAdminWishlist(){
+
+    const box =
+        document.getElementById(
+            "adminWishlist"
+        );
+
+    box.innerHTML="";
+
+    const wishlistProducts =
+        products.filter(
+            p=>favourites.includes(p.id)
+        );
+
+    if(wishlistProducts.length===0){
+
+        box.innerHTML =
+            "<p>No favourite products.</p>";
+
+        return;
+    }
+
+    wishlistProducts.forEach(product=>{
+
+        box.innerHTML += `
+
+        <div class="admin-product">
+
+            ❤️ <b>
+                ${product.name}
+            </b>
+
+            <p>
+                Price:
+                ৳${Number(
+                    product.price
+                ).toLocaleString()}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+/* ==========================================
+   ADMIN SESSIONS
+========================================== */
+
+function loadAdminSessions(){
+
+    const box =
+        document.getElementById(
+            "adminSessions"
+        );
+
+    box.innerHTML="";
+
+    box.innerHTML += `
+
+        <div class="admin-product">
+
+            <p>
+                👤 Current Customer:
+                ${
+                    currentUser
+                    ?
+                    currentUser.name
+                    :
+                    "No customer logged in"
+                }
+            </p>
+
+            <p>
+                🔐 Admin:
+                ${
+                    localStorage.getItem(
+                        "salmanAdmin"
+                    )==="true"
+                    ?
+                    "Logged in"
+                    :
+                    "Logged out"
+                }
+            </p>
+
+        </div>
+
+    `;
+}
+
+
+/* ==========================================
+   AI RECOMMENDATION
+========================================== */
+
+function aiRecommend(category){
+
+    const result =
+        products
+        .filter(
+            p=>
+            p.category===category
+            &&
+            p.stock>0
+        )
+        .sort(
+            (a,b)=>
+            a.price-b.price
+        )
+        .slice(0,3);
+
+    const box =
+        document.getElementById(
+            "aiResult"
+        );
+
+    if(result.length===0){
+
+        box.innerHTML =
+            "❌ No products available.";
+
+        return;
+    }
+
+    box.innerHTML =
+        "<b>🤖 Recommended for you:</b><br><br>";
+
+    result.forEach(p=>{
+
+        box.innerHTML += `
+
+        <div
+            style="
+                background:#f3f4f6;
+                padding:10px;
+                margin:5px 0;
+                border-radius:7px;
+            "
+        >
+
+            ${getImageHTML(p)}
+
+            <b>
+                ${p.name}
+            </b>
+
+            -
+
+            ৳${Number(
+                p.price
+            ).toLocaleString()}
+
+        </div>
+
+        `;
+
+    });
+}
+
+
+/* ==========================================
+   INITIAL LOAD
+========================================== */
+
+displayProducts();
+
+updateCart();
+
+updateAccountButton();
+
+loadFavourite();
+
+</script>
+
+</body>
+</html>
